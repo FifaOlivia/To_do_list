@@ -1,12 +1,13 @@
 <script setup>
-import RegistrationForm from '../components/RegistrationForm.vue'
-import UserLogin from '../components/UserLogin.vue'
+//import RegistrationForm from '../components/RegistrationForm.vue'
+//import UserLogin from '../components/UserLogin.vue'
+import TodoLis from '../components/TodoLis.vue'
 </script>
 
 <template>
   <main>
-     
-  <RegistrationForm></RegistrationForm>
-  <UserLogin></UserLogin>
+    <TodoLis></TodoLis> 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
   </main>
 </template>
+ 

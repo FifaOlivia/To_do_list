@@ -1,26 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 import useAuthStore from '../stores/auth.js'
-import bcrypt from "bcrypt";
-/* import validateReister from '../stores/validateReister.js'; */
+
 const autStore = useAuthStore();
 var errors = ref([])
 var email = ref('')
 var password = ref('')
-var user = ref(null)
+var user = ref(null) 
 var password_confirmation = ref('')
-
-await bcrypt.compare(password, hash);
-
-const myPlaintextPassword = password_confirmation.value;
-const salt = bcrypt.genSaltSync(10);
-const hash = bcrypt.hashSync(myPlaintextPassword, salt);
-
-bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(myPlaintextPassword, salt, function(err, hash) {
-        console.log(hash)
-    });
-});
 
 function reisterUser() {
   if (email.value == '') {
@@ -56,26 +43,6 @@ function reisterUser() {
   }
   autStore.save(user.value)
 }
-
-/* const isInvalid = validateReister(user); 
-      const errors = validateReister(user);
-      
-      if (isInvalid) {
-        this.errors = errors
-      } else {        
-        this.errors = {}
-
-        if (localStorage.users) {
-          let lsUsers = localStorage.users
-          this.users = JSON.parse(lsUsers)
-        }
-        this.users.push(user)
-        localStorage.setItem('users', JSON.stringify(this.users))
-        this.email = ''
-        this.password = ''
-        this.password_confirmation = ''
-        this.$router.push('/login')
-      } */
 </script>
 
 <template>

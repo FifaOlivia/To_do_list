@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+var email = ref('')
+var password = ref('')
+</script>
 
 <template>
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
