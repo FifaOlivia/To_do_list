@@ -12,7 +12,6 @@ export const useAuthStore = defineStore('Auth', {
         this.allUsers.push(JSON.parse(localStorage.getItem('users')))
         this.allUsers.push(user)
         localStorage.setItem('users', JSON.stringify(this.allUsers))
-        console.log(this.allUsers)
         router.push('/Signup')
       }
   }

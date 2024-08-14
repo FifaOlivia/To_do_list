@@ -7,12 +7,13 @@
     </div>
     <br />
     <hr class="bg-black" />
-    <br /> 
+    <br />
     <form @submit.prevent>
       <div class="input-group">
         <div>
           <label for="title">Title: &nbsp;&nbsp;</label>
           <input type="text" class="form-control" placeholder="title" v-model="title" required />
+          <div class="invalid-feedback">{{ errors['title'] }}</div>
         </div>
         &nbsp;
         <div>
@@ -25,6 +26,7 @@
             required
             v-model="description"
           ></textarea>
+          <div class="invalid-feedback">{{ errors['description'] }}</div>
         </div>
         &nbsp;
 
@@ -37,6 +39,7 @@
             v-model="dateDep"
             required
           />
+          <div class="invalid-feedback">{{ errors['dateDep'] }}</div>
         </div>
         <br />
 
@@ -49,81 +52,79 @@
             v-model="dateEc"
             required
           />
+          <div class="invalid-feedback">{{ errors['dateEc'] }}</div>
         </div>
+        
         <br />
 
         <button
           class="button-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          type="submit" 
+          type="submit"
+          @click="create()"
         >
           ADD
         </button>
       </div>
     </form>
+
+    <div>
+      <router-link :to="{ name: 'home' }" class="btn btn-outline-secondary">
+        <button>Back to list</button>
+      </router-link>
+    </div>
     <br />
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-        >
-          <tr>
-            <th scope="col" class="px-6 py-3">Titre</th>
-            <th scope="col" class="px-6 py-3">Description</th>
-            <th scope="col" class="px-6 py-3">Date de départ</th>
-            <th scope="col" class="px-6 py-3">Date d'échéance</th>
-            <th scope="col" class="px-6 py-3">Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            ></td>
-
-            <td>
-              <button
-                class="bg-blue-500 hover:bg-transparent-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Edit</button
-              >&nbsp;
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                Delete</button
-              >&nbsp;
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Update
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'TodoLis',
+<script setup>
+import { ref } from 'vue'
+import useCounterStore from '../stores/counter.js'
 
-  data() {
-    return {
-      title: '',
-      description: '',
-      dateDep: '',
-      dateEc: ''
-    }
-  },
-  method: {
-    submit() {
-      console.log('liviiii')
-      console.log(this.title),
-        console.log(this.description),
-        console.log(this.dateDep),
-        console.log(this.dateEc)
-    }
+const countStore = useCounterStore()
+var errors = ref([])
+var title = ref('')
+var description = ref('')
+var dateDep = ref('')
+var dateEc = ref('')
+var list = ref(null)
+
+function create() { 
+  if (title.value == '') {
+    errors.value['title'] = 'Title field is required'
+    return false
+  } else {
+    errors.value['title'] = ''
   }
+ 
+  if (description.value == '') {
+    errors.value['description'] = 'Description field is required'
+    return false
+  } else {
+    errors.value['description'] = ''
+  }
+
+  if (dateDep.value == '' || dateDep.value > dateEc.value) {
+    errors.value['dateDep'] = 'Date de départ field is required'
+    return false
+  } else {
+    errors.value['dateDep'] = ''
+  }
+
+  if (dateEc.value == '') {
+    errors.value['dateEc'] = "Date d'échéance field is required"
+    return false
+  } else {
+    errors.value['dateEc'] = ''
+  }
+
+  list.value = {
+    title: title.value,
+    description: description.value,
+    dateDep: dateDep.value,
+    dateEc: dateEc.value
+  }
+  countStore.save(list.value)
 }
 </script>
 <style></style>
