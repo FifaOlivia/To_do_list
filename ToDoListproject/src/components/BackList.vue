@@ -59,7 +59,7 @@ countStore.GetList()
           </td>
 
           <td>
-            <router-link :to="{ name: 'edit', params: { id: 1723720204956 } }">
+            <router-link :to="{ name: 'edit', params: { id: list.id } }">
               <button
                 class="bg-blue-500 hover:bg-transparent-700 text-white font-bold py-2 px-4 rounded"
               >
