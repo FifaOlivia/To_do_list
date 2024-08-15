@@ -22,6 +22,12 @@ export const useCounterStore = defineStore('Counter', {
         this.allList[this.allList.indexOf(this.allList.find((list) => list.id == listId.id))] = listId
         localStorage.setItem('lists', JSON.stringify(this.allList));
         alert("To do updated successfully")
+      },
+      DeleteList(listId){
+          this.allList = this.allList.filter((list) => list.id !== listId);
+          localStorage.setItem('lists', JSON.stringify(this.allList));
+          localStorage.getItem('lists');
+          alert("To do deleted successfully")
       }
   }
 })
