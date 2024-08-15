@@ -54,7 +54,7 @@
           />
           <div class="invalid-feedback">{{ errors['dateEc'] }}</div>
         </div>
-        
+
         <br />
 
         <button
@@ -64,16 +64,18 @@
         >
           ADD
         </button>
+        &nbsp;&nbsp;
+        <router-link :to="{ name: 'backlist' }" class="btn btn-outline-secondary">
+          <button
+            class="button-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Back to list
+          </button>
+        </router-link>
       </div>
     </form>
 
-    <div>
-      <router-link :to="{ name: 'home' }" class="btn btn-outline-secondary">
-        <button>Back to list</button>
-      </router-link>
-    </div>
     <br />
-
   </div>
 </template>
 
@@ -89,14 +91,14 @@ var dateDep = ref('')
 var dateEc = ref('')
 var list = ref(null)
 
-function create() { 
+function create() {
   if (title.value == '') {
     errors.value['title'] = 'Title field is required'
     return false
   } else {
     errors.value['title'] = ''
   }
- 
+
   if (description.value == '') {
     errors.value['description'] = 'Description field is required'
     return false
@@ -119,6 +121,7 @@ function create() {
   }
 
   list.value = {
+    id: Date.now(),
     title: title.value,
     description: description.value,
     dateDep: dateDep.value,
